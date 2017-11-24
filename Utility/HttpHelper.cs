@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -81,11 +82,12 @@ namespace WordPressPCL.Utility
         internal async Task<(TClass, HttpResponseMessage)> PostRequest<TClass>(string route, HttpContent postBody, bool isAuthRequired = true)
             where TClass : class
         {
+            System.Net.ServicePointManager.Expect100Continue = false;
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
             using (var client = new HttpClient())
             {
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                if (isAuthRequired)
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                       if (isAuthRequired)
                 {
                     //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Utility.Authentication.Base64Encode($"{Username}:{Password}"));
                     //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -93,7 +95,13 @@ namespace WordPressPCL.Utility
                 }
                 try
                 {
+
                     response = await client.PostAsync($"{_WordpressURI}{route}", postBody).ConfigureAwait(false);
+                    //response = await client.GetAsync($"{_WordpressURI}{route}", HttpCompletionOption.ResponseContentRead).ConfigureAwait(false);
+
+                    //IEnumerable<string> headerValues = response.Headers.GetValues("X-WP-TotalPages");
+                    //var id = headerValues.FirstOrDefault();
+
                     var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {

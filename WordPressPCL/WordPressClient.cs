@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using ModernHttpClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WordPressPCL.Client;
+using WordPressPCL.Interfaces;
 using WordPressPCL.Models;
 using WordPressPCL.Utility;
 
@@ -76,6 +78,11 @@ namespace WordPressPCL
         public Client.Media Media;
 
         /// <summary>
+        /// Redident client interaction object
+        /// </summary>
+        public Client.Residents Residents;
+
+        /// <summary>
         /// Categories client interaction object
         /// </summary>
         public Categories Categories;
@@ -128,6 +135,7 @@ namespace WordPressPCL
             Tags = new Tags(ref _httpHelper, defaultPath);
             Users = new Users(ref _httpHelper, defaultPath);
             Media = new Media(ref _httpHelper, defaultPath);
+            Residents = new Residents(ref _httpHelper, defaultPath);
             Categories = new Categories(ref _httpHelper, defaultPath);
             Pages = new Pages(ref _httpHelper, defaultPath);
             Taxonomies = new Taxonomies(ref _httpHelper, defaultPath);
@@ -171,7 +179,7 @@ namespace WordPressPCL
         public async Task RequestJWToken(string Username, string Password)
         {
             var route = $"{jwtPath}token";
-            using (var client = new HttpClient())
+            using (var client = new HttpClient(new NativeMessageHandler()))
             {
                 var formContent = new FormUrlEncodedContent(new[]
                 {
@@ -200,7 +208,7 @@ namespace WordPressPCL
         public async Task<bool> IsValidJWToken()
         {
             var route = $"{jwtPath}token/validate";
-            using (var client = new HttpClient())
+            using (var client = new HttpClient(new NativeMessageHandler()))
             {
                 (JWTUser jwtUser, HttpResponseMessage repsonse) = await _httpHelper.PostRequest<JWTUser>(route, null, true);
                 return repsonse.IsSuccessStatusCode;
@@ -208,5 +216,6 @@ namespace WordPressPCL
         }
 
         #endregion auth methods
+
     }
 }

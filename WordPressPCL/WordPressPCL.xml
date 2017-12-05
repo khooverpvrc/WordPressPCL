@@ -487,6 +487,77 @@
             <param name="useAuth">Send request with authenication header</param>
             <returns>Entity by Id</returns>
         </member>
+        <member name="T:WordPressPCL.Client.Residents">
+            <summary>
+            Summary description for Class1
+            </summary>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.#ctor(WordPressPCL.Utility.HttpHelper@,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="HttpHelper">reference to HttpHelper class for interaction with HTTP</param>
+            <param name="defaultPath">path to site, EX. http://demo.com/wp-json/ </param>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.GetStickyResidents(System.Boolean,System.Boolean)">
+            <summary>
+            Get sticky Residents
+            </summary>
+            <param name="embed">includ embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of Residents</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.GetResidentsByCategory(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Get Residents by category
+            </summary>
+            <param name="categoryId">Category Id</param>
+            <param name="embed">includ embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of Residents</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.GetResidentsByTag(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Get Residents by tag
+            </summary>
+            <param name="tagId">Tag Id</param>
+            <param name="embed">includ embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of Residents</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.GetResidentsByAuthor(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Get Residents by its author
+            </summary>
+            <param name="authorId">Author id</param>
+            <param name="embed">includ embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of Residents</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.GetResidentsBySearch(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Get Residents by search term
+            </summary>
+            <param name="searchTerm">Search term</param>
+            <param name="embed">include embed info</param>
+            <param name="useAuth">Send request with authenication header</param>
+            <returns>List of Residents</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.Delete(System.Int32,System.Boolean)">
+            <summary>
+            Delete post with force deletion
+            </summary>
+            <param name="ID">Post id</param>
+            <param name="force">force deletion</param>
+            <returns>Result of opertion</returns>
+        </member>
+        <member name="M:WordPressPCL.Client.Residents.Revisions(System.Int32)">
+            <summary>
+            Get instance ob object to manipulate with post revisions
+            </summary>
+            <param name="postId">ID of parent Post</param>
+            <returns>Post revisions object</returns>
+        </member>
         <member name="T:WordPressPCL.Client.Tags">
             <summary>
             Client class for interaction with Tags endpoint WP REST API
@@ -3528,6 +3599,106 @@
             </summary>
             <param name="text">text uses in HTTP query string</param>
         </member>
+        <member name="T:WordPressPCL.Utility.ResidentsQueryBuilder">
+            <summary>
+            Post Query Builder class to construct queries with valid parameters
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Page">
+            <summary>
+            Current page of the collection.
+            </summary>
+            <remarks>Default: 1</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.PerPage">
+            <summary>
+            Maximum number of items to be returned in result set.
+            </summary>
+            <remarks>Default: 10</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Search">
+            <summary>
+            Limit results to those matching a string.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.After">
+            <summary>
+            Limit response to posts published after a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Authors">
+            <summary>
+            Limit result set to posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.AuthorsExclude">
+            <summary>
+            Ensure result set excludes posts assigned to specific authors.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Before">
+            <summary>
+            Limit response to posts published before a given date
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Exclude">
+            <summary>
+            Ensure result set excludes specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Include">
+            <summary>
+            Limit result set to specific IDs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Offset">
+            <summary>
+            Offset the result set by a specific number of items.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.OrderBy">
+            <summary>
+            Sort collection by object attribute.
+            </summary>
+            <remarks>Default: date
+            One of: date, relevance, id, include, title, slug</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Slugs">
+            <summary>
+            Limit result set to posts with one or more specific slugs.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Statuses">
+            <summary>
+            Limit result set to posts assigned one or more statuses.
+            </summary>
+            <remarks>Default: publish</remarks>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Categories">
+            <summary>
+            Limit result set to all items that have the specified term assigned in the categories taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.CategoriesExclude">
+            <summary>
+            Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Tags">
+            <summary>
+            Limit result set to all items that have the specified term assigned in the tags taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.TagsExclude">
+            <summary>
+            Limit result set to all items except those that have the specified term assigned in the tags taxonomy.
+            </summary>
+        </member>
+        <member name="P:WordPressPCL.Utility.ResidentsQueryBuilder.Sticky">
+            <summary>
+            Limit result set to items that are sticky.
+            </summary>
+        </member>
         <member name="T:WordPressPCL.Utility.TagsQueryBuilder">
             <summary>
             Tag Query Builder class to construct queries with valid parameters
@@ -3706,6 +3877,11 @@
         <member name="F:WordPressPCL.WordPressClient.Media">
             <summary>
             Media client interaction object
+            </summary>
+        </member>
+        <member name="F:WordPressPCL.WordPressClient.Residents">
+            <summary>
+            Redident client interaction object
             </summary>
         </member>
         <member name="F:WordPressPCL.WordPressClient.Categories">
